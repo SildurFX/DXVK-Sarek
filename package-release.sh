@@ -48,10 +48,10 @@ while [ $# -gt 0 ]; do
     ;;
   "--32-only")
     opt_32_only=1
-  ;;
+    ;;
   "--arm64ec-only")
     opt_arm64ec_only=1
-  ;;
+    ;;
   *)
     echo "Unrecognized option: $1" >&2
     exit 1
@@ -98,13 +98,13 @@ function package {
   rm -R "dxvk-$DXVK_VERSION"
 }
 
-if [ $opt_32_only -eq 0 ]; then
+if [ $opt_32_only -eq 0 ] && [ $opt_arm64ec_only -eq 0 ]; then
   build_arch 64
 fi
-if [ $opt_64_only -eq 0 ]; then
+if [ $opt_64_only -eq 0 ] && [ $opt_arm64ec_only -eq 0 ]; then
   build_arch 32
 fi
-if [ $opt_arm64ec_only -eq 0 ]; then
+if [ $opt_64_only -eq 0 ] && [ $opt_32_only -eq 0 ]; then
   build_arch arm64ec
 fi
 
